@@ -52,5 +52,5 @@ runs:
       uses: ataylorme/eslint-annotate-action@master
       if: always()
       with:
-        repo-token: '${{ input.token }}'
+        repo-token: '${{ inputs.token }}'
         report-json: './reports/eslint_report.json'
