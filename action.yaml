@@ -49,6 +49,7 @@ runs:
       shell: bash
     - name: Annotate Code Linting Results
       uses: ataylorme/eslint-annotate-action@master
+      if: inputs.lint == 'true'
       with:
         repo-token: '${{ github.token }}'
         report-json: './reports/eslint_report.json'
