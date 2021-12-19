@@ -48,9 +48,3 @@ runs:
       if: inputs.lint == 'true'
       run: yarn lint --output-file ./reports/eslint_report.json --format json
       shell: bash
-    - name: Annotate Code Linting Results
-      uses: ataylorme/eslint-annotate-action@master
-      if: always()
-      with:
-        repo-token: '${{ inputs.token }}'
-        report-json: './reports/eslint_report.json'
