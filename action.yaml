@@ -33,7 +33,6 @@ runs:
         node-version: 16.x
         cache: 'yarn'
     - name: Install
-      if: steps.node.outputs.cache-hit != 'true'
       run: yarn install --frozen-lockfile --prefer-offline
       shell: bash
     - name: TypeScript check
