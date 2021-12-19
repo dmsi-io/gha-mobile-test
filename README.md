@@ -19,8 +19,6 @@ jobs:
         uses: dmsi-io/gha-mobile-test@main
 ```
 
-> It is recommended to create this GHA in its own yaml file. This will only be ran if the action exists within the [default branch](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#delete).
-
 ### Optional inputs
 
 #### TypeScript
