@@ -4,15 +4,15 @@ description: 'Run tests, linting, and type checking. Expects `yarn tsc`, `yarn t
 inputs:
   typescript:
     description: 'If true, run type checking on the app code'
-    default: true
+    default: 'true'
     required: false
   test:
     description: 'If true, run tests'
-    default: true
+    default: 'true'
     required: false
   lint:
     description: 'If true, run linting on the source code'
-    default: true
+    default: 'true'
     required: false
 
 runs:
@@ -31,14 +31,14 @@ runs:
       run: yarn install
       shell: bash
     - name: TypeScript check
-      if: inputs.typescript == true
+      if: inputs.typescript == 'true'
       run: yarn tsc --noEmit
       shell: bash
     - name: Unit Tests
-      if: inputs.test == true
+      if: inputs.test == 'true'
       run: yarn test --maxWorkers 4
       shell: bash
     - name: ESLint
-      if: inputs.lint == true
+      if: inputs.lint == 'true'
       run: yarn lint --format junit --output-file ./reports/eslint/eslint.xml
       shell: bash

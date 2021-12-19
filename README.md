@@ -29,7 +29,7 @@ Default: true
 
 ```yaml
   with:
-    typescript: false
+    typescript: 'false'
 ```
 
 #### Unit Tests
@@ -40,7 +40,7 @@ Default: true
 
 ```yaml
   with:
-    test: false
+    test: 'false'
 ```
 
 #### Linting
@@ -51,5 +51,5 @@ Default: true
 
 ```yaml
   with:
-    lint: false
+    lint: 'false'
 ```
