@@ -1,0 +1,55 @@
+name: 'Mobile App Testing'
+description: 'Run tests, linting, and type checking. Expects `yarn tsc`, `yarn test`, and `yarn lint` to be valid commands when they are setup'
+
+inputs:
+  typescript:
+    description: 'If true, run type checking on the app code'
+    default: 'true'
+    required: false
+  test:
+    description: 'If true, run tests'
+    default: 'true'
+    required: false
+  lint:
+    description: 'If true, run linting on the source code'
+    default: 'true'
+    required: false
+  token:
+    description: 'Personal Access Token (PAT) used to clone submodules'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+        token: ${{ inputs.token }}
+    - name: Node
+      id: node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+        cache: 'yarn'
+    - name: Install
+      run: yarn install --frozen-lockfile --prefer-offline
+      shell: bash
+    - name: TypeScript check
+      if: inputs.typescript == 'true'
+      run: yarn tsc --noEmit
+      shell: bash
+    - name: Unit Tests
+      if: inputs.test == 'true'
+      run: yarn test --maxWorkers 4
+      shell: bash
+    - name: ESLint
+      if: inputs.lint == 'true'
+      run: yarn lint --output-file ./reports/eslint_report.json --format json
+      shell: bash
+    - name: Annotate Code Linting Results
+      uses: ataylorme/eslint-annotate-action@master
+      if: always() && inputs.lint == 'true'
+      with:
+        repo-token: '${{ github.token }}'
+        report-json: './reports/eslint_report.json'
