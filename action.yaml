@@ -14,18 +14,10 @@ inputs:
     description: 'If true, run linting on the source code'
     default: 'true'
     required: false
-  token:
-    description: 'Personal Access Token (PAT) used to clone submodules'
-    required: true
 
 runs:
   using: 'composite'
   steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        submodules: true
-        token: ${{ inputs.token }}
     - name: Node
       id: node
       uses: actions/setup-node@v2

@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Test App
         uses: dmsi-io/gha-mobile-test@main
-        with:
-          token: ${{ secrets.GHA_ACCESS_TOKEN }}
 ```
 
 ### Optional inputs
