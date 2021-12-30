@@ -27,14 +27,6 @@ runs:
     - name: Install
       run: yarn install --frozen-lockfile --prefer-offline
       shell: bash
-    - name: TypeScript check
-      if: inputs.typescript == 'true'
-      run: yarn tsc --noEmit
-      shell: bash
-    - name: Unit Tests
-      if: inputs.test == 'true'
-      run: yarn test --maxWorkers 4
-      shell: bash
     - name: ESLint
       if: inputs.lint == 'true'
       run: yarn lint --output-file ./reports/eslint_report.json --format json
@@ -45,3 +37,11 @@ runs:
       with:
         repo-token: '${{ github.token }}'
         report-json: './reports/eslint_report.json'
+    - name: TypeScript check
+      if: inputs.typescript == 'true'
+      run: yarn tsc --noEmit
+      shell: bash
+    - name: Unit Tests
+      if: inputs.test == 'true'
+      run: yarn test --maxWorkers 4
+      shell: bash
