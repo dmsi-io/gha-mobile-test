@@ -17,9 +17,6 @@ jobs:
     steps:
       - name: Test App
         uses: dmsi-io/gha-mobile-test@main
-        with:
-          GHA_ACCESS_TOKEN: ${{ secrets.GHA_ACCESS_TOKEN }}
-          GHA_ACCESS_USER: ${{ secrets.GHA_ACCESS_USER }}
 ```
 
 ### Optional inputs
@@ -55,4 +52,14 @@ Default: true
 ```yaml
   with:
     lint: 'false'
+```
+
+#### GitHub Access
+
+When provided, these values cause the GitHub Action to comment on PRs with a link to the related Jira issue(s).
+
+```yaml
+  with:
+    GHA_ACCESS_TOKEN: ${{ secrets.GHA_ACCESS_TOKEN }}
+    GHA_ACCESS_USER: ${{ secrets.GHA_ACCESS_USER }}
 ```

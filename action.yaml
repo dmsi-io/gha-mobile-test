@@ -4,10 +4,12 @@ description: 'Run tests, linting, and type checking. Expects `yarn tsc`, `yarn t
 inputs:
   GHA_ACCESS_TOKEN:
     description: 'GitHub access token'
-    required: true
+    default: ''
+    required: false
   GHA_ACCESS_USER:
     description: 'GitHub access user'
-    required: true
+    default: ''
+    required: false
   typescript:
     description: 'If true, run type checking on the app code'
     default: 'true'
@@ -26,6 +28,7 @@ runs:
   steps:
     - name: Comment on Story Number
       uses: dmsi-io/gha-pull-request@v1.1
+      if: ${{ inputs.GHA_ACCESS_TOKEN }} != '' && ${{ inputs.GHA_ACCESS_USER }} != ''
       with:
         GHA_ACCESS_TOKEN: ${{ inputs.GHA_ACCESS_TOKEN }}
         GHA_ACCESS_USER: ${{ inputs.GHA_ACCESS_USER }}
