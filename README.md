@@ -62,4 +62,5 @@ When provided, these values cause the GitHub Action to comment on PRs with a lin
   with:
     GHA_ACCESS_TOKEN: ${{ secrets.GHA_ACCESS_TOKEN }}
     GHA_ACCESS_USER: ${{ secrets.GHA_ACCESS_USER }}
+    JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
 ```
