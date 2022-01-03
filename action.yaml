@@ -37,6 +37,7 @@ runs:
         GHA_ACCESS_TOKEN: ${{ inputs.GHA_ACCESS_TOKEN }}
         GHA_ACCESS_USER: ${{ inputs.GHA_ACCESS_USER }}
         JIRA_BASE_URL: ${{ inputs.JIRA_BASE_URL }}
+        branch_name: 'feature/ABC-123-DEF-456'
     - name: Node
       id: node
       uses: actions/setup-node@v2
