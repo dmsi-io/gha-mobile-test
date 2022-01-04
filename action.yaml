@@ -2,6 +2,18 @@ name: 'Mobile App Testing'
 description: 'Run tests, linting, and type checking. Expects `yarn tsc`, `yarn test`, and `yarn lint` to be valid commands when they are setup'
 
 inputs:
+  GHA_ACCESS_TOKEN:
+    description: 'GitHub access token'
+    default: ''
+    required: false
+  GHA_ACCESS_USER:
+    description: 'GitHub access user'
+    default: ''
+    required: false
+  JIRA_BASE_URL:
+    description: 'The base URL that allows access to the Jira issues'
+    default: ''
+    required: false
   typescript:
     description: 'If true, run type checking on the app code'
     default: 'true'
@@ -18,6 +30,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Comment on Story Number
+      uses: dmsi-io/gha-pull-request@v1.1
+      if: ${{ inputs.GHA_ACCESS_TOKEN }} != '' && ${{ inputs.GHA_ACCESS_USER }} != '' && ${{ inputs.JIRA_BASE_URL }} != ''
+      with:
+        GHA_ACCESS_TOKEN: ${{ inputs.GHA_ACCESS_TOKEN }}
+        GHA_ACCESS_USER: ${{ inputs.GHA_ACCESS_USER }}
+        JIRA_BASE_URL: ${{ inputs.JIRA_BASE_URL }}
     - name: Node
       id: node
       uses: actions/setup-node@v2
@@ -32,7 +51,7 @@ runs:
       run: yarn lint --output-file ./reports/eslint_report.json --format json
       shell: bash
     - name: Annotate Code Linting Results
-      uses: ataylorme/eslint-annotate-action@master
+      uses: ataylorme/eslint-annotate-action@f92355332c64bc5c2d474cc6555edcb1315fdd12
       if: always() && inputs.lint == 'true'
       with:
         repo-token: '${{ github.token }}'
