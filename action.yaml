@@ -31,7 +31,7 @@ runs:
   using: 'composite'
   steps:
     - name: Comment on Story Number
-      uses: dmsi-io/gha-pull-request@v1.1
+      uses: dmsi-io/gha-pull-request@main
       if: inputs.GHA_ACCESS_TOKEN != '' && inputs.GHA_ACCESS_USER != '' && inputs.JIRA_BASE_URL != ''
       with:
         GHA_ACCESS_TOKEN: ${{ inputs.GHA_ACCESS_TOKEN }}
