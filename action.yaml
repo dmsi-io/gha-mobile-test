@@ -20,6 +20,7 @@ inputs:
     required: false
   changelog:
     description: 'If true, run the changelog checker'
+    default: 'false'
     required: false
   test:
     description: 'If true, run tests'
