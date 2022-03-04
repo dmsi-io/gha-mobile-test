@@ -18,6 +18,9 @@ inputs:
     description: 'If true, run type checking on the app code'
     default: 'true'
     required: false
+  changelog:
+    description: 'If true, run the changelog checker'
+    required: false
   test:
     description: 'If true, run tests'
     default: 'true'
@@ -46,6 +49,11 @@ runs:
     - name: Install
       run: yarn install --frozen-lockfile --prefer-offline
       shell: bash
+    - name: Review Code
+      uses: dmsi-io/gha-code-review@main
+      with:
+        changelog: ${{ inputs.changelog }}
+        token: ${{ inputs.GHA_ACCESS_TOKEN }}
     - name: ESLint
       if: inputs.lint == 'true'
       run: yarn lint --output-file ./reports/eslint_report.json --format json
