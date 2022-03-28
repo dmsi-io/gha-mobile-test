@@ -52,6 +52,7 @@ runs:
       shell: bash
     - name: Review Code
       uses: dmsi-io/gha-code-review@main
+      if: inputs.GHA_ACCESS_TOKEN != ''
       with:
         changelog: ${{ inputs.changelog }}
         token: ${{ inputs.GHA_ACCESS_TOKEN }}
