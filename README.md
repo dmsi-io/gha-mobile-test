@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
       - name: Test App
@@ -30,7 +30,7 @@ jobs:
 ## Inputs
 
 | NAME               | DESCRIPTION                                                                                                              | TYPE      | REQUIRED | DEFAULT |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------ | --------- | -------- | ------- |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------|-----------|----------|---------|
 | `typescript`       | Allows enabling/disabling the TypeScript type checker (runs without emitting). Expects `yarn tsc` to be a valid command. | `boolean` | `false`  | `true`  |
 | `test`             | Allows enabling/disabling unit test. Expects `yarn test` to be a valid command.                                          | `boolean` | `false`  | `true`  |
 | `lint`             | Allows enabling/disabling the linter. Expects `yarn lint` to be a valid command.                                         | `string`  | `false`  | `true`  |
