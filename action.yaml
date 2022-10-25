@@ -41,35 +41,44 @@ runs:
         GHA_ACCESS_TOKEN: ${{ inputs.GHA_ACCESS_TOKEN }}
         GHA_ACCESS_USER: ${{ inputs.GHA_ACCESS_USER }}
         JIRA_BASE_URL: ${{ inputs.JIRA_BASE_URL }}
+
     - name: Node
       id: node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: 16.x
+        node-version: 18
         cache: 'yarn'
+
     - name: Install
       run: yarn install --frozen-lockfile --prefer-offline
       shell: bash
+
     - name: Review Code
       uses: dmsi-io/gha-code-review@main
       if: inputs.GHA_ACCESS_TOKEN != ''
       with:
         changelog: ${{ inputs.changelog }}
         token: ${{ inputs.GHA_ACCESS_TOKEN }}
-    - name: ESLint
+
+    - name: Lint
+      id: lint
       if: inputs.lint == 'true'
       run: yarn lint --output-file ./reports/eslint_report.json --format json
       shell: bash
+
     - name: Annotate Code Linting Results
       uses: ataylorme/eslint-annotate-action@f92355332c64bc5c2d474cc6555edcb1315fdd12
-      if: always() && inputs.lint == 'true'
+      if: inputs.lint == 'true' && steps.lint.outcome == 'failure'
       with:
         repo-token: '${{ github.token }}'
         report-json: './reports/eslint_report.json'
+
     - name: TypeScript check
       if: inputs.typescript == 'true'
       run: yarn tsc --noEmit
       shell: bash
+
+
     - name: Unit Tests
       if: inputs.test == 'true'
       run: yarn test --maxWorkers 4
