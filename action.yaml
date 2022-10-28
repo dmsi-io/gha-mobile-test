@@ -68,7 +68,7 @@ runs:
 
     - name: Annotate Code Linting Results
       uses: ataylorme/eslint-annotate-action@f92355332c64bc5c2d474cc6555edcb1315fdd12
-      if: inputs.lint == 'true' && steps.lint.outcome == 'failure'
+      if: always() && inputs.lint == 'true' && steps.lint.outcome == 'failure'
       with:
         repo-token: '${{ github.token }}'
         report-json: './reports/eslint_report.json'
